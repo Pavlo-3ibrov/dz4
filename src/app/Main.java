@@ -34,6 +34,7 @@ public static void processProduct(int productNumber, String productName, int qua
 }
 
 
+
 //_--зразок--_ (0_0)
 //Product No 1: smartphone,
 //total sales for 5 days is EUR 12153,41,
