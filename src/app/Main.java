@@ -49,6 +49,7 @@ public class Main {
         }
 
         return income.multiply(rate).setScale(2, RoundingMode.HALF_UP);
+
     }
 }
 
