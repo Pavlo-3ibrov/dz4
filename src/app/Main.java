@@ -13,7 +13,7 @@ public class Main {
 
         processProduct(2, "laptop", 1, new BigDecimal("10486.85"), 7);
 
-       // processProduct(3, "fffffff", 1, new BigDecimal("1"), 100);          //test
+     processProduct(3, "fffffff", 1, new BigDecimal("1"), 1000);
 
     }
     //метод розрахунку ціни.виводить текст
@@ -31,9 +31,18 @@ public static void processProduct(int productNumber, String productName, int qua
         System.out.printf(Locale.GERMANY, "Product No %d: %s,%n", productNumber, productName);
         System.out.printf(Locale.GERMANY, "total sales for %d days is EUR %.2f,%n", days, totalSales);
         System.out.printf(Locale.GERMANY, "sales by day is EUR %.2f.%n", salesByDay);
-
+//1
     }
 }
+
+
+
+
+
+
+
+
+
 
 
 
