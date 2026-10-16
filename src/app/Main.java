@@ -2,44 +2,62 @@ package app;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.Locale;
 
 
 public class Main {
+
+//шкала оподаткування
+    private static final BigDecimal LIMIT1 = new BigDecimal("10000");
+    private static final BigDecimal LIMIT2 = new BigDecimal("25000");
+    //%податуів
+    private static final BigDecimal RATE1 = new BigDecimal("0.025");
+    private static final BigDecimal RATE2 = new BigDecimal("0.043");
+    private static final BigDecimal RATE3 = new BigDecimal("0.067");
+
+
     public static void main(String[] args) {
+//доходи людей
+        BigDecimal[] incomes = {
+                new BigDecimal("8000.00"),
+                new BigDecimal("14385346.00"),
+                new BigDecimal("16000.00"),
 
-        //метод товарів(я забув зачем кількість)
-        processProduct(1, "smartphone", 1, new BigDecimal("12153.41"), 5);
+        };
+//робим значення бігдецимал(чо не біг квінта?) для інком,передаєм дохід і обраховуєм податок.повертаєм в нову змінну.підставляєм робим 10 символів,2 послі крапки 0,виводим.
+        for (BigDecimal income : incomes) {
+            BigDecimal podatok = calculatePodatok(income);
+            System.out.printf("Дохід: %10.2f грн | Податок: %8.2f грн%n",income, podatok);
 
-        processProduct(2, "laptop", 1, new BigDecimal("10486.85"), 7);
-
-       // processProduct(3, "fffffff", 1, new BigDecimal("1"), 100);          //test
-
+        }
     }
-    //метод розрахунку ціни.виводить текст
-public static void processProduct(int productNumber, String productName, int quantity, BigDecimal price, int days){
-        //ціна на кількість
-    BigDecimal totalSales = price.multiply(BigDecimal.valueOf(quantity));
-//середня сума за день
-    BigDecimal salesByDay = totalSales.divide(BigDecimal.valueOf(days), 2, RoundingMode.HALF_EVEN);
-//  RoundingMode.HALF_EVEN (округлення до найближчого парного), зменшує кумулятивну статистичну похибку під час багатьох послідовних операцій.
+//рахуєм податок
+    public static BigDecimal calculatePodatok(BigDecimal income) {
+        if (income ==null || income.compareTo(BigDecimal.ZERO) <0) {
+            throw new IllegalArgumentException("Сума доходу не може бути порожньою або відємною.");
 
+        }
+        BigDecimal rate;
 
+        if (income.compareTo(LIMIT1) <= 0) {
+            rate = RATE1;
+        }
+        else if (income.compareTo(LIMIT2) <= 0) {
+            rate = RATE2;
+        }
+        else {
+            rate = RATE3;
+        }
 
-
-
-        System.out.printf(Locale.GERMANY, "Product No %d: %s,%n", productNumber, productName);
-        System.out.printf(Locale.GERMANY, "total sales for %d days is EUR %.2f,%n", days, totalSales);
-        System.out.printf(Locale.GERMANY, "sales by day is EUR %.2f.%n", salesByDay);
+        return income.multiply(rate).setScale(2, RoundingMode.HALF_UP);
 
     }
 }
 
 
 
-//_--зразок--_ (0_0)
-//Product No 1: smartphone,
-//total sales for 5 days is EUR 12153,41,
-//sales by day is EUR 2430,68.
-//total sales for 7 days is EUR 10486,85,
-//sales by day is EUR 1498,12.
+
+
+
+
+
+
