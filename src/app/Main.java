@@ -10,7 +10,6 @@ public class Main {
 
         System.out.println("Елементи масиву: " + Arrays.toString(numbers));
 
-
         int videmniSum = 0;
         int videmniCount = 0;
         for (int num : numbers) {
